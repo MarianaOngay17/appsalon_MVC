@@ -30,4 +30,5 @@ Actualizar archivo
     composer update
 
 Compilar proyecto dentro de carpeta public
+
     php -S localhost:3000
