@@ -33,6 +33,14 @@ Compilar proyecto dentro de carpeta public
 
     php -S localhost:3000
 
+Instalar php mailer
+
+    composer require phpmailer/phpmailer
+
+Actualizar archivo
+
+    composer update
+
 
 Base de Datos
 
@@ -50,10 +58,16 @@ Base de Datos
     PRIMARY KEY (`id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-    CREATE TABLE `servicios` (
+    CREATE TABLE `usuarios` (
     `id` int NOT NULL AUTO_INCREMENT,
     `nombre` varchar(60) DEFAULT NULL,
-    `precio` decimal(5,2) DEFAULT NULL,
+    `apellido` varchar(60) DEFAULT NULL,
+    `email` varchar(30) DEFAULT NULL,
+    `telefono` varchar(10) DEFAULT NULL,
+    `admin` tinyint(1) DEFAULT NULL,
+    `confirmado` tinyint(1) DEFAULT NULL,
+    `token` varchar(15) DEFAULT NULL,
+    `password` varchar(60) DEFAULT NULL,
     PRIMARY KEY (`id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
