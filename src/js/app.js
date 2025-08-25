@@ -12,6 +12,8 @@ function iniciarApp(){
     botonesPaginador(); //agrega o quita botones del paginador
     paginaAnterior();
     paginaSiguiente();
+
+    consultarAPI(); //consulta api en backend php
 }
 
 function mostrarSeccion(){
@@ -53,7 +55,7 @@ function botonesPaginador(){
     const paginaAnterior = document.querySelector('#anterior');
     const paginaSiguiente = document.querySelector('#siguiente');
 
-    if(paso ===1){
+    if(paso === 1){
         paginaAnterior.classList.add('ocultar');
         paginaSiguiente.classList.remove('ocultar');
     }else if(paso === 3){
@@ -82,6 +84,41 @@ function paginaSiguiente(){
         paso++;
         botonesPaginador();
         mostrarSeccion();
+    });
+}
+
+async function consultarAPI(){
+    try {
+        const url = 'http://localhost:3000/api/servicios';
+        const resultado = await fetch(url);
+        const servicios = await resultado.json();
+        mostrarServicios(servicios);
+    } catch(e){
+        console.log(e);
+    }
+}
+
+function mostrarServicios(servicios){
+    servicios.forEach( servicio => {
+        const {id, nombre, precio} = servicio;
+
+        const nombreServicio = document.createElement('P');
+        nombreServicio.classList.add('nombre-servicio');
+        nombreServicio.textContent = nombre;
+
+        const precioServicio = document.createElement('P');
+        precioServicio.classList.add('precio-servicio');
+        precioServicio.textContent = `$${precio}`;
+
+        const servicioDiv = document.createElement('DIV');
+        servicioDiv.classList.add('servicio');
+        servicioDiv.dataset.idServicio = id;
+
+        servicioDiv.appendChild(nombreServicio);
+        servicioDiv.appendChild(precioServicio);
+
+        document.querySelector('#servicios').appendChild(servicioDiv);
+
     });
 }
 
