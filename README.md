@@ -41,6 +41,9 @@ Actualizar archivo
 
     composer update
 
+Sweetalert2 https://sweetalert2.github.io/
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 Base de Datos
 

@@ -3,6 +3,7 @@ const pasoInicial = 1;
 const pasoFinal = 3;
 
 const cita = {
+    id: '',
     nombre: '',
     fecha: '',
     hora: '',
@@ -22,6 +23,7 @@ function iniciarApp(){
 
     consultarAPI(); //consulta api en backend php
 
+    idCliente(); 
     nombreCliente(); 
     seleccionarFecha();
     seleccionarHora();
@@ -163,6 +165,10 @@ function nombreCliente(){
     cita.nombre = document.querySelector('#nombre').value;
 }
 
+function idCliente(){
+    cita.id = document.querySelector('#id').value;
+}
+
 function seleccionarFecha(){
     const inputFecha = document.querySelector('#fecha');
     inputFecha.addEventListener('input', function(e){
@@ -278,8 +284,52 @@ function mostrarResumen(){
     resumen.appendChild(botonReservar);
 }
 
-function reservarCita(){
+async function reservarCita(){
 
+    const {id, nombre, fecha, hora, servicios} = cita;
+
+    const idServicios = servicios.map(servicio => servicio.id);
+
+    const datos = new FormData();
+    datos.append('fecha', fecha);
+    datos.append('hora', hora);
+    datos.append('usuarioId', id);
+    datos.append('servicios', idServicios);
+
+
+    //console.log([...datos]); //asi se ven los datos del form data
+
+    try{
+          //peticion hacia la api
+        const url = 'http://localhost:3000/api/citas';
+        const respuesta = await fetch(url, {
+             method: 'POST',
+             body: datos
+        })
+
+        const resultado = await respuesta.json();
+
+        if(resultado.resultado){
+            Swal.fire({
+                icon: "success",
+                title: "Cita Creada",
+                text: "Tu cita fue creada correctamente",
+                button: 'OK'
+                }).then( ()  => {
+                    setTimeout(() => {
+                        window.location.reload()
+                    }, 3000);
+                })
+        }
+
+    }catch(e){
+        Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Hubo un error al guardar la cita"
+        });
+    }
+   
 }
 
 function mostrarAlerta(mensaje, tipo, elemento, desaparece = true){
