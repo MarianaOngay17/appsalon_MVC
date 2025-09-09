@@ -112,3 +112,17 @@ Base de Datos
 Para realizar el deployment
 
     composer require vlucas/phpdotenv
+
+Ejemplo .env
+
+    DB_HOST = localhost
+    DB_USER = root
+    DB_PASS = root
+    DB_NAME = appsalon_mvc
+
+    EMAIL_HOST = sandbox.smtp.mailtrap.io
+    EMAIL_PORT = 2525
+    EMAIL_USER = 
+    EMAIL_PASS = 
+
+    APP_URL = http://localhost:3000
