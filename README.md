@@ -108,3 +108,7 @@ Base de Datos
 	 ('Uñas',400.00),
 	 ('Lavado de Cabello',50.00),
 	 ('Tratamiento Capilar',150.00);
+
+Para realizar el deployment
+
+    composer require vlucas/phpdotenv
